@@ -1,0 +1,17 @@
+@app.route('/home')
+def home():
+    connection = connect(host="localhost", database="student", user="root", password="saloni@598")
+    cur = connection.cursor()
+    query1 = "select * from  urlinfo"
+    cur.execute(query1)
+    data = cur.fetchall()
+    print(data)
+    return render_template('UserHome.html',data=data)
+
+
+@app.route('/editurl',method=['post'])
+def editurl():
+    id=request.form.get('id')
+    url = request.form.get('originalurl')
+    encrypted=request.form.get('encrypted')
+    return render_template('editurl.html',url=url,encrypted=encrypted,id=id)
